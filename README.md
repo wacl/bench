@@ -18,7 +18,7 @@ Supported for CentOS 6, CentOS 7, Debian 7 and Ubuntu 12.04+
 Open your Terminal and enter:
 
 ```
-wget https://raw.githubusercontent.com/frappe/bench/master/install_scripts/setup_frappe.sh
+wget https://raw.githubusercontent.com/wacl/bench/master/install_scripts/setup_frappe.sh
 sudo bash setup_frappe.sh --setup-production
 ```
 
@@ -40,7 +40,7 @@ Install pre-requisites,
 	
 Install bench as a *non root* user,
 
-		git clone https://github.com/frappe/bench bench-repo
+		git clone https://github.com/wacl/bench bench-repo
 		sudo pip install -e bench-repo
 
 Note: Please do not remove the bench directory the above commands will create
@@ -48,15 +48,15 @@ Note: Please do not remove the bench directory the above commands will create
 Installing ERPNext
 ------------------
 
-If you're here to setup ERPNext, continue with [ERPNext setup](https://github.com/frappe/bench#setting-up-erpnext)
+If you're here to setup ERPNext, continue with [ERPNext setup](https://github.com/wacl/bench#setting-up-erpnext)
 
 
 Migrating from existing installation
 ------------------------------------
 
-If want to migrate from ERPNext version 3, follow the instructions here, https://github.com/frappe/bench/wiki/Migrating-from-ERPNext-version-3
+If want to migrate from ERPNext version 3, follow the instructions here, https://github.com/wacl/bench/wiki/Migrating-from-ERPNext-version-3
 
-If want to migrate from the old bench, follow the instructions here, https://github.com/frappe/bench/wiki/Migrating-from-old-bench
+If want to migrate from the old bench, follow the instructions here, https://github.com/wacl/bench/wiki/Migrating-from-old-bench
 
 
 Basic Usage
@@ -73,10 +73,10 @@ Basic Usage
 * Add apps
 
 	The get-app command gets and installs frappe apps. Examples include
-	[erpnext](https://github.com/frappe/erpnext) and
-	[shopping-cart](https://github.com/frappe/shopping-cart)
+	[erpnext](https://github.com/wacl/erpnext) and
+	[shopping-cart](https://github.com/wacl/shopping-cart)
 
-		bench get-app erpnext https://github.com/frappe/erpnext
+		bench get-app erpnext https://github.com/wacl/erpnext
 
 * Add site
 
@@ -105,8 +105,8 @@ To setup a bench that runs ERPNext, run the following commands
 cd ~
 bench init frappe-bench
 cd frappe-bench
-bench get-app erpnext https://github.com/frappe/erpnext				# Add ERPNext to your bench apps
-bench get-app shopping_cart https://github.com/frappe/shopping-cart	# Add Shopping cart to your bench apps
+bench get-app erpnext https://github.com/wacl/erpnext				# Add ERPNext to your bench apps
+bench get-app shopping_cart https://github.com/wacl/shopping-cart	# Add Shopping cart to your bench apps
 bench new-site site1.local											# Create a new site
 bench frappe --install_app erpnext site1.local						# Install ERPNext for the site
 bench frappe --install_app shopping_cart site1.local				# Install Shopping cart for the site
@@ -240,4 +240,4 @@ probable places for it to exist are `/etc/nginx/conf.d/default.conf` and
 Multitenant setup
 =================
 
-Follow https://github.com/frappe/bench/wiki/Multitenant-Setup
+Follow https://github.com/wacl/bench/wiki/Multitenant-Setup

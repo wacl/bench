@@ -5,7 +5,7 @@ setup(
 	version='0.1',
 	py_modules=find_packages(),
 	include_package_data=True,
-	url='https://github.com/frappe/bench',
+	url='https://github.com/wacl/bench',
 	author='Web Notes Technologies Pvt. Ltd.',
 	author_email='info@frappe.io',
 	install_requires=[

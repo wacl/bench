@@ -1,11 +1,11 @@
 [
 	{
-		"url":"https://github.com/frappe/erpnext",
+		"url":"https://github.com/wacl/erpnext",
 		"name":"erpnext",
 		"branch": "master"
 	},
 	{
-		"url":"https://github.com/frappe/shopping-cart",
+		"url":"https://github.com/wacl/shopping-cart",
 		"name":"shopping_cart",
 		"branch": "master"
 	}
