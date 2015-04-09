@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-
+CURPWD=`pwd`
 
 ## Utils
 
@@ -211,7 +211,7 @@ install_wkhtmltopdf_centos () {
 	fi
 
 	RPM="wkhtmltox-0.12.2.1_linux-$OS$OS_VER-$WK_ARCH.rpm"
-	if [ ! -f `pwd`/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb ]; then
+	if [ ! -f `pwd`/$RPM ]; then
 		run_cmd wget http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/$RPM
 		rpm --quiet -q wkhtmltox || run_cmd rpm -Uvh $RPM
 	fi
@@ -227,8 +227,10 @@ install_wkhtmltopdf_deb () {
 	else
 		WK_VER=$OS_VER
 	fi
-	run_cmd wget http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/wkhtmltox-0.12.2.1_linux-$WK_VER-$WK_ARCH.deb
-	run_cmd dpkg -i wkhtmltox-0.12.2.1_linux-$WK_VER-$WK_ARCH.deb
+	if [ ! -f `pwd`/wkhtmltox-0.12.2.1_linux-$WK_VER-$WK_ARCH.deb ]; then
+		run_cmd wget http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/wkhtmltox-0.12.2.1_linux-$WK_VER-$WK_ARCH.deb
+		run_cmd dpkg -i wkhtmltox-0.12.2.1_linux-$WK_VER-$WK_ARCH.deb
+	fi
 }
 
 
