@@ -17,43 +17,43 @@ get_passwd() {
 
 set_opts () {
 	OPTS=`getopt -o v --long verbose,mysql-root-password:,frappe-user:,bench-branch:,setup-production,skip-setup-bench,help -n 'parse-options' -- "$@"`
-	 
+
 	if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
-	 
-	eval set -- "$OPTS"
-	 
-	VERBOSE=false
-	HELP=false
-	FRAPPE_USER=false
-	BENCH_BRANCH="master"
-	SETUP_PROD=false
-	SETUP_BENCH=true
 
-	if [ -f ~/frappe_passwords.sh ]; then
-		source ~/frappe_passwords.sh
-	else
-		FRAPPE_USER_PASS=`get_passwd`
-		MSQ_PASS=`get_passwd`
-		ADMIN_PASS=`get_passwd`
+		eval set -- "$OPTS"
 
-		echo "FRAPPE_USER_PASS=$FRAPPE_USER_PASS" > ~/frappe_passwords.sh
-		echo "MSQ_PASS=$MSQ_PASS" >> ~/frappe_passwords.sh
-		echo "ADMIN_PASS=$ADMIN_PASS" >> ~/frappe_passwords.sh
-	fi
-	 
-	while true; do
-	case "$1" in
-	-v | --verbose ) VERBOSE=true; shift ;;
-	-h | --help ) HELP=true; shift ;;
-	--mysql-root-password ) MSQ_PASS="$2"; shift; shift ;;
-	--frappe-user ) FRAPPE_USER="$2"; shift; shift ;;
-	--setup-production ) SETUP_PROD=true; shift;;
-	--bench-branch ) BENCH_BRANCH="$2"; shift;;
-	--skip-setup-bench ) SETUP_BENCH=false; shift;;
-	-- ) shift; break ;;
-	* ) break ;;
-	esac
-	done
+		VERBOSE=false
+		HELP=false
+		FRAPPE_USER=false
+		BENCH_BRANCH="master"
+		SETUP_PROD=false
+		SETUP_BENCH=true
+
+		if [ -f ~/frappe_passwords.sh ]; then
+			source ~/frappe_passwords.sh
+		else
+			FRAPPE_USER_PASS=`get_passwd`
+			MSQ_PASS=`get_passwd`
+			ADMIN_PASS=`get_passwd`
+
+			echo "FRAPPE_USER_PASS=$FRAPPE_USER_PASS" > ~/frappe_passwords.sh
+			echo "MSQ_PASS=$MSQ_PASS" >> ~/frappe_passwords.sh
+			echo "ADMIN_PASS=$ADMIN_PASS" >> ~/frappe_passwords.sh
+		fi
+
+		while true; do
+			case "$1" in
+				-v | --verbose ) VERBOSE=true; shift ;;
+-h | --help ) HELP=true; shift ;;
+--mysql-root-password ) MSQ_PASS="$2"; shift; shift ;;
+--frappe-user ) FRAPPE_USER="$2"; shift; shift ;;
+--setup-production ) SETUP_PROD=true; shift;;
+--bench-branch ) BENCH_BRANCH="$2"; shift;;
+--skip-setup-bench ) SETUP_BENCH=false; shift;;
+-- ) shift; break ;;
+* ) break ;;
+esac
+done
 }
 
 get_distro() {
@@ -105,14 +105,14 @@ run_cmd() {
 
 add_centos6_mariadb_repo() {
 	echo "
-[mariadb]
-name = MariaDB
-baseurl = http://yum.mariadb.org/5.5/centos$OS_VER-$ARCH
-gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
-gpgcheck=1
-" > /etc/yum.repos.d/mariadb.repo
+	[mariadb]
+	name = MariaDB
+	baseurl = http://yum.mariadb.org/5.5/centos$OS_VER-$ARCH
+	gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+	gpgcheck=1
+	" > /etc/yum.repos.d/mariadb.repo
 }
- 
+
 
 add_ubuntu_mariadb_repo() {
 	run_cmd sudo apt-get update
@@ -124,7 +124,7 @@ add_ubuntu_mariadb_repo() {
 add_debian_mariadb_repo() {
 	if [ $OS_VER == "7" ]; then
 		CODENAME="wheezy"
-	
+
 	elif [ $OS_VER == "6" ]; then
 		CODENAME="squeeze"
 	else
@@ -140,10 +140,10 @@ add_debian_mariadb_repo() {
 
 add_ius_repo() {
 	if [ $OS_VER -eq "6" ]; then
-	wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/$OS_VER/$T_ARCH/epel-release-6-5.noarch.rpm
-	wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/$OS_VER/$T_ARCH/ius-release-1.0-13.ius.centos6.noarch.rpm
-	rpm --quiet -q epel-release || rpm -Uvh epel-release-6-5.noarch.rpm
-	rpm --quiet -q ius-release || rpm -Uvh ius-release-1.0-13.ius.centos6.noarch.rpm
+		wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/$OS_VER/$T_ARCH/epel-release-6-5.noarch.rpm
+		wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/$OS_VER/$T_ARCH/ius-release-1.0-13.ius.centos6.noarch.rpm
+		rpm --quiet -q epel-release || rpm -Uvh epel-release-6-5.noarch.rpm
+		rpm --quiet -q ius-release || rpm -Uvh ius-release-1.0-13.ius.centos6.noarch.rpm
 	fi
 }
 
@@ -157,7 +157,7 @@ add_maria_db_repo() {
 	elif [ "$OS" == "centos" ]; then
 		echo Adding centos mariadb repo
 		add_centos6_mariadb_repo
-	
+
 	elif [ "$OS" == "debian" ]; then 
 		echo Adding debian mariadb repo
 		add_debian_mariadb_repo
@@ -187,8 +187,8 @@ install_packages() {
 		echo "Installing wkhtmltopdf"
 		install_wkhtmltopdf_centos
 		run_cmd easy_install-2.7 -U pip
-	
-	
+
+
 	elif [ $OS == "debian" ] || [ $OS == "Ubuntu" ]; then 
 		export DEBIAN_FRONTEND=noninteractive
 		setup_debconf
@@ -209,9 +209,12 @@ install_wkhtmltopdf_centos () {
 		echo "Cannot install wkhtmltodpdf. Skipping..."
 		return 0
 	fi
+
 	RPM="wkhtmltox-0.12.2.1_linux-$OS$OS_VER-$WK_ARCH.rpm"
-	run_cmd wget http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/$RPM
-	rpm --quiet -q wkhtmltox || run_cmd rpm -Uvh $RPM
+	if [ ! -f `pwd`/$RPM ]; then
+		run_cmd wget http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/$RPM
+		rpm --quiet -q wkhtmltox || run_cmd rpm -Uvh $RPM
+	fi
 }
 
 install_wkhtmltopdf_deb () {
@@ -230,13 +233,13 @@ install_wkhtmltopdf_deb () {
 
 
 install_supervisor_centos6() {
-		run_cmd easy_install supervisor
-		curl -Ss https://raw.githubusercontent.com/pdvyas/supervisor-initscripts/master/redhat-init-jkoppe > /etc/init.d/supervisord
-		curl -Ss https://raw.githubusercontent.com/pdvyas/supervisor-initscripts/master/redhat-sysconfig-jkoppe > /etc/sysconfig/supervisord
-		curl -Ss https://raw.githubusercontent.com/pdvyas/supervisor-initscripts/master/supervisord.conf > /etc/supervisord.conf
-		run_cmd mkdir /etc/supervisor.d
-		run_cmd chmod +x /etc/init.d/supervisord
-		bash -c "service supervisord start || true"
+	run_cmd easy_install supervisor
+	curl -Ss https://raw.githubusercontent.com/pdvyas/supervisor-initscripts/master/redhat-init-jkoppe > /etc/init.d/supervisord
+	curl -Ss https://raw.githubusercontent.com/pdvyas/supervisor-initscripts/master/redhat-sysconfig-jkoppe > /etc/sysconfig/supervisord
+	curl -Ss https://raw.githubusercontent.com/pdvyas/supervisor-initscripts/master/supervisord.conf > /etc/supervisord.conf
+	run_cmd mkdir /etc/supervisor.d
+	run_cmd chmod +x /etc/init.d/supervisord
+	bash -c "service supervisord start || true"
 }
 
 ### config
@@ -309,17 +312,17 @@ start_services_centos7() {
 
 configure_mariadb() {
 	config="
-[mysqld]
-innodb-file-format=barracuda
-innodb-file-per-table=1
-innodb-large-prefix=1
-character-set-client-handshake = FALSE
-character-set-server = utf8mb4
-collation-server = utf8mb4_unicode_ci
+	[mysqld]
+	innodb-file-format=barracuda
+	innodb-file-per-table=1
+	innodb-large-prefix=1
+	character-set-client-handshake = FALSE
+	character-set-server = utf8mb4
+	collation-server = utf8mb4_unicode_ci
 
-[mysql]
-default-character-set = utf8mb4
- "
+	[mysql]
+	default-character-set = utf8mb4
+	"
 	deb_cnf_path="/etc/mysql/conf.d/barracuda.cnf"
 	centos_cnf_path="/etc/my.cnf.d/barracuda.cnf"
 
@@ -370,7 +373,7 @@ setup_bench() {
 		FRAPPE_BRANCH="master"
 		ERPNEXT_APPS_JSON="https://raw.githubusercontent.com/wacl/bench/master/install_scripts/erpnext-apps-master.json"
 	fi
-		
+
 	# run_cmd sudo su $FRAPPE_USER -c "cd /home/$FRAPPE_USER && bench init frappe-bench --frappe-branch $FRAPPE_BRANCH --apps_path $ERPNEXT_APPS_JSON"
 	run_cmd sudo su $FRAPPE_USER -c "cd /home/$FRAPPE_USER && bench init frappe-bench --frappe-branch $FRAPPE_BRANCH"
 	echo Setting up first site
@@ -393,22 +396,22 @@ add_user() {
 # Check if script is running as root and is not running as sudo. We want to skip
 # this step if the user is already running this script with sudo as a non root
 # user
-	if [ "$FRAPPE_USER" == "false" ]; then
-		if [[ $SUDO_UID -eq 0 ]] && [[ $EUID -eq 0 ]]; then
-			export FRAPPE_USER="frappe"
-		else
-			export FRAPPE_USER="$SUDO_USER"
-		fi
+if [ "$FRAPPE_USER" == "false" ]; then
+	if [[ $SUDO_UID -eq 0 ]] && [[ $EUID -eq 0 ]]; then
+		export FRAPPE_USER="frappe"
+	else
+		export FRAPPE_USER="$SUDO_USER"
 	fi
+fi
 
-	USER_EXISTS=`bash -c "id $FRAPPE_USER > /dev/null 2>&1  && echo true || (echo false && exit 0)"`
+USER_EXISTS=`bash -c "id $FRAPPE_USER > /dev/null 2>&1  && echo true || (echo false && exit 0)"`
 
-	if [ $USER_EXISTS == "false" ]; then
-		useradd -m -d /home/$FRAPPE_USER -s $SHELL $FRAPPE_USER
-		echo $FRAPPE_USER:$FRAPPE_USER_PASS | chpasswd
-		chmod o+x /home/$FRAPPE_USER
-		chmod o+r /home/$FRAPPE_USER
-	fi
+if [ $USER_EXISTS == "false" ]; then
+	useradd -m -d /home/$FRAPPE_USER -s $SHELL $FRAPPE_USER
+	echo $FRAPPE_USER:$FRAPPE_USER_PASS | chpasswd
+	chmod o+x /home/$FRAPPE_USER
+	chmod o+r /home/$FRAPPE_USER
+fi
 }
 
 main() {
