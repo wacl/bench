@@ -211,7 +211,7 @@ install_wkhtmltopdf_centos () {
 	fi
 
 	RPM="wkhtmltox-0.12.2.1_linux-$OS$OS_VER-$WK_ARCH.rpm"
-	if [ ! -f `pwd`/$RPM ]; then
+	if [ ! -f `pwd`/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb ]; then
 		run_cmd wget http://downloads.sourceforge.net/project/wkhtmltopdf/0.12.2.1/$RPM
 		rpm --quiet -q wkhtmltox || run_cmd rpm -Uvh $RPM
 	fi
