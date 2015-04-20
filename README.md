@@ -237,6 +237,8 @@ cases for the nginx welcome page). You will have to disable this config.  Most
 probable places for it to exist are `/etc/nginx/conf.d/default.conf` and
 `/etc/nginx/conf.d/default`.
 
+sudo bench setup production frappe
+
 Multitenant setup
 =================
 
